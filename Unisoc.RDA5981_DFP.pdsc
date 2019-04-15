@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+  <vendor>Unisoc</vendor>
+  <name>RDA5981_DFP</name>
+  <description>RDA5981 ARM Cortex-M4 Device Family Pack</description>
+  <url>http://wcnbbs.unisoc.com/cmsis.php</url>
+  <supportContact>ru.zhang@unisoc.com</supportContact>
+  <!-- optional license file -->
+  <!-- 
+  <license>
+  </license>
+  -->
+  
+  <releases>
+    <release version="1.0.0" date="2019-04-11">
+      Initial Version
+    </release>
+  </releases>
+
+  <keywords>
+    <!-- keywords for indexing -->
+    <keyword>RDA</keyword>
+    <keyword>5981</keyword>
+  </keywords>
+
+  <devices>
+    <family Dfamily="RDA5981 Series" Dvendor="Unisoc:152">
+      <processor Dcore="Cortex-M4" DcoreVersion="r2p1" Dfpu="1" Dmpu="1" Dendian="Little-endian"/>
+      <!-- ************************  Subfamily 'RDA5981x'  **************************** -->
+      <compile header="Device/Include/RDA5991H.h"/>
+      <debug      svd="SVD/RDA5991H.svd"/>
+      <subFamily DsubFamily="5981x">
+      
+        <!-- *************************  Device 'RDA5981C'  ***************************** -->
+        <device Dname="5981C">
+          <description>RDA5981 Series-5981C</description>
+          <algorithm  name="Flash/RDA5991H_CE2.FLM" start="0x18001000" size="0x1F4000"  default="1"/>
+        </device>
+      </subFamily>		
+    </family>
+  </devices>
+ 
+  <!-- examples section (optional for all Software Packs)-->
+  <!--
+  <examples>
+  </examples>
+  -->
+  
+  <conditions>
+    <!-- conditions are dependency rules that can apply to a component or an individual file -->
+
+    <condition id="RDA5981">
+      <!-- conditions selecting Devices -->
+      <description>RDA5981 Series devices</description>
+      <require Dvendor="Unisoc:152" Dname="5981*"/>
+    </condition>
+    <condition id="RDA5981 CMSIS">
+      <description>RDA5981 Series devices and CMSIS-CORE</description>
+      <require condition="RDA5981"/>
+      <require Cclass="CMSIS" Cgroup="CORE"/>
+    </condition>
+    <condition id="Startup ARM">
+      <description>Startup assembler file for ARMCC</description>
+      <require Tcompiler="ARMCC"/>
+    </condition>
+
+  </conditions>
+
+  <components>
+    <component Cclass="Device" Cgroup="Startup" Cversion="1.0.0" condition="RDA5981 CMSIS">
+      <description>System Startup for RDA5981 Series</description>
+      <files>
+       <!--  include folder -->
+        <file category="include" name="Device/Include/"/>
+        <file category="source"  name="Device/Source/ARM/startup_RDA5991H.s" attr="config" condition="Startup ARM" version="1.0.0"/>
+        <!--file category="source"  name="Device/Source/GCC/startup_RDA5991H.S" attr="config" condition="Startup GCC" version="1.0.0"/-->
+        <!--file category="source"  name="Device/Source/IAR/startup_RDA5991H.S" attr="config" condition="Startup IAR" version="1.0.0"/-->
+        <file category="source"  name="Device/Source/system_RDA5991H.c"  attr="config" version="1.0.0"/>
+      </files>
+    </component>
+  </components>
+
+</package>
